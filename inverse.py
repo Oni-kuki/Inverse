@@ -1,28 +1,26 @@
-def hex_to_bytes(hex_string):
-    return bytes.fromhex(hex_string)
-
-def create_binary_file(hex_file_path, output_file_path):
+# Fonction pour inverser les lignes d'un fichier
+def inverser_lignes(fichier_entree, fichier_sortie):
     try:
-        # Lecture du fichier hexadécimal
-        with open(hex_file_path, 'r') as hex_file:
-            hex_data = hex_file.read().replace('\n', '')
+        # Lecture du fichier d'entrée
+        with open(fichier_entree, 'r') as f_entree:
+            lignes = f_entree.readlines()
 
-        # Conversion des valeurs hexadécimales en octets
-        binary_data = hex_to_bytes(hex_data)
+        # Inversion de l'ordre des lignes
+        lignes_inversees = reversed(lignes)
 
-        # Écriture des octets dans le fichier binaire
-        with open(output_file_path, 'wb') as bin_file:
-            bin_file.write(binary_data)
+        # Écriture du résultat dans le fichier de sortie
+        with open(fichier_sortie, 'w') as f_sortie:
+            f_sortie.writelines(lignes_inversees)
 
-        print(f"Le fichier '{output_file_path}' a été créé avec succès.")
+        print("Inversion des lignes terminée avec succès.")
 
     except FileNotFoundError:
-        print("Le fichier hexadécimal spécifié n'existe pas.")
+        print("Le fichier d'entrée spécifié n'existe pas.")
     except Exception as e:
         print(f"Une erreur s'est produite : {e}")
 
 # Exemple d'utilisation
-hex_file_path = 'hex-in-text.'  # Remplacez cela par le chemin de votre fichier hexadécimal
-output_file_path = 'file-created.'
+fichier_entree = 'photo.png'  # Remplacez cela par le chemin de votre fichier
+fichier_sortie = 'fichier_inverse.png'
 
-create_binary_file(hex_file_path, output_file_path)
+inverser_lignes(fichier_entree, fichier_sortie)
